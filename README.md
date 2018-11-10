@@ -60,6 +60,6 @@ Alexis Valenciano
 
 ## License
 
-This project is licensed under the  Apache-2.0 - see the [LICENSE](LICENSE) file for details
+This project is licensed under the  MIT Lisence - see the [LICENSE](LICENSE) file for details
 
 
