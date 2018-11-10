@@ -2,7 +2,7 @@
 
 # MERN-CHAT
 
->Simple MongoDB,Express,React,Node Chat App using  Material-Ui
+>Simple Realtime MongoDB,Express,React,Node Chat App using  Material-Ui
 
 ## Quick Start
 >Run following commands
