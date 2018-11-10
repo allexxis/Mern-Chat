@@ -21,6 +21,11 @@ mongoose
     .then(()=>console.log('Mongo connected'))
     .catch(err=>console.log(err));
 
+//Use Routes 
+app.use('/api/clients',clients);
+app.use('/api/chats',chats);
+
+
 const port = 5000;
 
 app.listen(port,()=>console.log(`Server started on ${port}`));
