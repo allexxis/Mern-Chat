@@ -15,7 +15,7 @@
     "url": "git+https://github.com/allexxis/Mern-Chat.git"
   },
   "author": "Alexis Gonzalez Valenciano",
-  "license": "Apache License 2.0",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/allexxis/Mern-Chat/issues"
   },
