@@ -13,11 +13,11 @@ const app = express();
 app.use(bodyParser.json());
 
 //DB Config
-const db = require('./config/keys').mongoURI;
+const DB = require('./config/keys').mongoURI;
 
 //Connect to Mongo
 mongoose
-    .connect(db,{ useNewUrlParser: true })
+    .connect(DB,{ useNewUrlParser: true })
     .then(()=>console.log('Mongo connected'))
     .catch(err=>console.log(err));
 
@@ -26,6 +26,6 @@ app.use('/api/clients',clients);
 app.use('/api/chats',chats);
 
 
-const port = 5000;
+const PORT = 5000;
 
-app.listen(port,()=>console.log(`Server started on ${port}`));
+app.listen(PORT,()=>console.log(`Server started on ${PORT}`));
