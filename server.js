@@ -2,6 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+
+//Routes
+const clients = require('./routes/api/clients');
+const chats = require('./routes/api/chats');
+//
 const app = express();
 
 //Body-Parser Middleware

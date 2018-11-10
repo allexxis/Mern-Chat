@@ -9,3 +9,4 @@ const ClientSchema = new Schema({
         required:true
     }
 });
+module.exports = Client = mongoose.model('client',ClientSchema);
