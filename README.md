@@ -2,10 +2,10 @@
 
 # MERN-CHAT
 
->Simple MongoDB,Express,React,Node Chat with Material-Ui
+>Simple MongoDB,Express,React,Node Chat App using  Material-Ui
 
 ## Quick Start
-#Run following commands
+>Run following commands
 ```bash
 #Clone repo
 git clone https://github.com/allexxis/Mern-Chat.git
