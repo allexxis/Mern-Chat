@@ -1,0 +1,29 @@
+{
+  "name": "mern-chat",
+  "version": "1.0.0",
+  "description": "simple M",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allexxis/Mern-Chat.git"
+  },
+  "author": "Alexis Gonzalez Valenciano",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/allexxis/Mern-Chat/issues"
+  },
+  "homepage": "https://github.com/allexxis/Mern-Chat#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
