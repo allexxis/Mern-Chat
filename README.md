@@ -46,11 +46,7 @@ NodeJS
 * [React.js](https://reactjs.org/docs/) - JavaScript library for building user interfaces
 * [NodeJS](https://docs.mongodb.com/) -  JavaScript runtime environment
 * [Material-Ui](https://material-ui.com/) - React javascript material-design library
-
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+    
 
 ## App Info
 
