@@ -7,6 +7,12 @@
 ## Quick Start
 #Run following commands
 ```bash
+#Clone repo
+git clone https://github.com/allexxis/Mern-Chat.git
+
+#Enter directory
+cd Mern-Chat
+
 # Install dependencies for server
 npm install
 
