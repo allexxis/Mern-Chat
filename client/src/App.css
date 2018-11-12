@@ -1,4 +1,13 @@
 .chat-container{
     background: '#CECE';
-    margin: 0 40px;
+    margin: 40px 40px;
+    display: flex;
+    border-style: solid;
+    border-color: '#000';
+    border-width: 0.4px;
+    border-radius: 3px;
+}
+.border{
+    border-color: '#e91e63';
+    border-width: 1px;
 }
