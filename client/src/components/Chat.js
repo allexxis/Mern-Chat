@@ -17,21 +17,35 @@ export default class Chat extends Component {
                 
             ],
         }
-        this.socket = io('localhost:5000');
+        this.socket = io('201.202.107.157:5000');
 
         this.socket.on('RECEIVE_MESSAGE', function(data){
             recieveMessage(data);
         });
         const recieveMessage=(data)=>{
-            window.alert(data.username)
+            let newMessage={
+                username:data.username,
+                id:this.state.key+1,
+                content:data.content
+            }
+            let newList = [...this.state.messages]
+            newList.unshift(newMessage)
+            
+            this.setState({
+                messages:newList,
+                key:this.state.key+1
+            })
+            const chatlist = this.refs.chat;
+            const scrollHeight = chatlist.scrollHeight;
+            const clientHeight = chatlist.clientHeight;
+            const maxScrollTop = scrollHeight - clientHeight;
+            ReactDOM.findDOMNode(chatlist).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+            
         }
         
     }
    sendMessage=(ev)=>{
-        this.socket.emit('SEND_MESSAGE', {
-            author: this.state.username,
-            message: this.state.textfield
-        })
+        
     }
     renderMessages=(user,message,key)=>{
         return(
@@ -59,30 +73,16 @@ export default class Chat extends Component {
         })
 
     }
-    handleSend=()=>{
+    handleSend=e=>{
         if(this.state.textfield !=''&&this.state.username!==''){
-            let newMessage={
-                username:this.state.username,
-                id:this.state.key+1,
-                content:this.state.textfield
-            }
-            let newList = [...this.state.messages]
-            newList.unshift(newMessage)
-            
-        this.setState({
-            messages:newList,
-            key:this.state.key+1
-        })
-        const chatlist = this.refs.chat;
-        const scrollHeight = chatlist.scrollHeight;
-        const clientHeight = chatlist.clientHeight;
-        const maxScrollTop = scrollHeight - clientHeight;
-        ReactDOM.findDOMNode(chatlist).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-        this.setState({textfield:''})
+            this.socket.emit('SEND_MESSAGE', {
+                username: this.state.username,
+                content: this.state.textfield
+            })
        }else {
            window.alert('message canot be empty or username')
        }
-       
+       this.setState({textfield:''})
     }
     render() {
         return (
@@ -107,7 +107,7 @@ export default class Chat extends Component {
                             ref='texfield' style={styles.messageInput}/>
                             <IconButton color='primary'
                             style={{width: '55px', height: '55px',marginLeft:10}}
-                            onClick={this.sendMessage}>
+                            onClick={this.handleSend}>
                             <Icon>send</Icon>
                             </IconButton>
                         </Grid>           
