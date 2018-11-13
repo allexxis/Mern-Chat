@@ -5,6 +5,7 @@ import chatBackground from '../images/index.png'
 import purple from '@material-ui/core/colors/purple'
 import * as ReactDOM from 'react-dom';
 
+
 export default class Chat extends Component {
     
     constructor(props){
@@ -12,7 +13,8 @@ export default class Chat extends Component {
         this.state={
             key:0,
             textfield:'',
-            username:'hiram',
+            textfieldUsername:'',
+            username:'',
             messages:[
                 
             ],
@@ -33,26 +35,42 @@ export default class Chat extends Component {
             textfield:input
         })
     }
-    
+    handleChangeUsername=(input)=>{
+        this.setState({
+            textfieldUsername:input.toUpperCase(),
+        })
+        
+    }
+    handleUsername=()=>{
+        this.setState({
+            username:this.state.textfieldUsername,
+            textfieldUsername:''
+        })
+
+    }
     handleSend=()=>{
-        let newMessage={
-            username:this.state.username,
-            id:this.state.key+1,
-            content:this.state.textfield
-        }
-        let newList = [...this.state.messages]
-        newList.unshift(newMessage)
-        window.alert(newMessage.id)
-       this.setState({
-           messages:newList,
-           key:this.state.key+1
-       })
-       const chatlist = this.refs.chat;
-       const scrollHeight = chatlist.scrollHeight;
-       const clientHeight = chatlist.clientHeight;
-       const maxScrollTop = scrollHeight - clientHeight;
-       ReactDOM.findDOMNode(chatlist).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-       this.setState({textfield:''})
+        if(this.state.textfield !=''&&this.state.username!==''){
+            let newMessage={
+                username:this.state.username,
+                id:this.state.key+1,
+                content:this.state.textfield
+            }
+            let newList = [...this.state.messages]
+            newList.unshift(newMessage)
+            
+        this.setState({
+            messages:newList,
+            key:this.state.key+1
+        })
+        const chatlist = this.refs.chat;
+        const scrollHeight = chatlist.scrollHeight;
+        const clientHeight = chatlist.clientHeight;
+        const maxScrollTop = scrollHeight - clientHeight;
+        ReactDOM.findDOMNode(chatlist).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+        this.setState({textfield:''})
+       }else {
+           window.alert('message canot be empty or username')
+       }
        
     }
     render() {
@@ -73,7 +91,9 @@ export default class Chat extends Component {
                             }
                         </Grid>
                         <Grid container direction='row' style={styles.messageInputContainer}>
-                            <TextField  value={this.state.textfield} onChange={e => this.handleChangeInput(e.target.value)} ref='texfield' style={styles.messageInput}/>
+                            <TextField  value={this.state.textfield} 
+                            onChange={e => this.handleChangeInput(e.target.value)} 
+                            ref='texfield' style={styles.messageInput}/>
                             <IconButton color='primary'
                             style={{width: '55px', height: '55px',marginLeft:10}}
                             onClick={()=>this.handleSend()}>
@@ -82,7 +102,18 @@ export default class Chat extends Component {
                         </Grid>           
                     </Grid>
                     <Grid container direction='column' lg={5} style={styles.optionsContainer}>
-                        <Typography vartiant='title' style={style.optionsTitle}>To start sending messages select an username</Typography>               
+                        <Typography variant='title' style={styles.optionsTitle}>To start sending messages write an username</Typography>               
+                        <Typography style={styles.optionsUsername} variant='subtitle1' username>Username: {this.state.username}</Typography>
+                        <Grid container direction='row' style={this.state.username?{display:'none'}:{}}>
+                            <TextField  value={this.state.textfieldUsername} 
+                            onChange={e => this.handleChangeUsername(e.target.value)} 
+                            ref='texfieldUsername' style={styles.usernameInput}/>
+                            <IconButton color='primary'
+                            style={{width: '50px', height:'50px',marginLeft:10}}
+                            onClick={()=>this.handleUsername()}>
+                            <Icon>send</Icon>
+                            </IconButton>
+                        </Grid>
                     </Grid> 
                 </Grid>
         )
@@ -95,7 +126,7 @@ const styles = ({
         marginLeft:40,
         borderRadius:3,
         padding:10,
-        backgroundImage: `url(${chatBackground})`,
+        /* backgroundImage: `url(${chatBackground})`, */
         height:500,
         overflow: 'scroll',
         overflowX: 'hidden',
@@ -135,7 +166,6 @@ const styles = ({
         height:100,
     },
     messageInput:{
-        
         width:'90%',
         height:30,
         borderBottomColor:'#dd33fa'
@@ -150,7 +180,20 @@ const styles = ({
         justifyContent:'flex-start'
     },
     optionsTitle:{
-        marginTop:40,
+        color:'#757575',
+        marginTop:65,
         marginLeft:40,
+    },
+    optionsUsername:{
+        color:'#757575',
+        marginLeft:40,
+        marginTop:40,
+       
+    },
+    usernameInput:{
+        marginLeft:40,
+        width:'70%',
+        height:30,
     }
+
 })
