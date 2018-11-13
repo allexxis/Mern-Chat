@@ -1,57 +1,88 @@
 import React ,{Component} from 'react';
 import Grid from '@material-ui/core/Grid'
 import {TextField,Card,Paper,Typography, GridList, GridListTile, ListItem,List, Icon, IconButton} from '@material-ui/core'
-import Particles from 'react-particles-js'
-import particles from './particlesjs-config'
 import chatBackground from '../images/index.png'
 import purple from '@material-ui/core/colors/purple'
+import * as ReactDOM from 'react-dom';
 
 export default class Chat extends Component {
     
     constructor(props){
         super(props)
         this.state={
-            username:'',
+            key:0,
+            textfield:'',
+            username:'hiram',
             messages:[
-                {username:'allexxis',id:null,content:'Hola amigos de todo el mundo'},
-                {username:'lola',id:null,content:'Que poco de feos'}
-            ]
+                
+            ],
+
         }
+        
     }
-    renderMessages=(mess)=>{
+    renderMessages=(user,message,key)=>{
         return(
-        <Paper  style={styles.messagePaper} >
-            <Typography variant='subtitle1' color='secondary' styles={styles.messageTitle}>username</Typography>
-            <Typography   noWrap type="body1" style={styles.messageText}>{mess}</Typography>
+        <Paper  style={styles.messagePaper} key={key}>
+            <Typography variant='subtitle1' color='secondary' styles={styles.messageTitle}>{user}</Typography>
+            <Typography   noWrap type="body1" style={styles.messageText}>{message}</Typography>
         </Paper>    
         )
+    }
+    handleChangeInput=(input)=>{
+        this.setState({
+            textfield:input
+        })
+    }
+    
+    handleSend=()=>{
+        let newMessage={
+            username:this.state.username,
+            id:this.state.key+1,
+            content:this.state.textfield
+        }
+        let newList = [...this.state.messages]
+        newList.unshift(newMessage)
+        window.alert(newMessage.id)
+       this.setState({
+           messages:newList,
+           key:this.state.key+1
+       })
+       const chatlist = this.refs.chat;
+       const scrollHeight = chatlist.scrollHeight;
+       const clientHeight = chatlist.clientHeight;
+       const maxScrollTop = scrollHeight - clientHeight;
+       ReactDOM.findDOMNode(chatlist).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+       this.setState({textfield:''})
+       
     }
     render() {
         return (
                 <Grid  style={styles.chatScreen} alignItems='center' container direction="row" spacing={8}>    
                     <Grid item wrap='nowrap'  container direction='column' lg={7}
                     style={styles.chatContainer}>
-                        <Grid style={styles.chat}>
-                            {this.renderMessages('asdasdasdsadasdadasdasdasdsaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
-                            {this.renderMessages('asdkljh')}
+                        <Grid ref='chat' style={styles.chat}>
+                            {
+                                this.state.messages.map((message)=>{
+                                    return(
+                                        <Paper  style={styles.messagePaper} key={message.id}>
+                                            <Typography variant='subtitle1' color='secondary' styles={styles.messageTitle}>{message.username}</Typography>
+                                            <Typography   noWrap type="body1" style={styles.messageText}>{message.content}</Typography>
+                                        </Paper> 
+                                    )
+                                })
+                            }
                         </Grid>
                         <Grid container direction='row' style={styles.messageInputContainer}>
-                            <TextField  style={styles.messageInput}/>
+                            <TextField  value={this.state.textfield} onChange={e => this.handleChangeInput(e.target.value)} ref='texfield' style={styles.messageInput}/>
                             <IconButton color='primary'
-                            style={{width: '55px', height: '55px',marginLeft:20}}
-                            onClick={()=>console.log('asdkjhgasdhajsdhgj')}>
+                            style={{width: '55px', height: '55px',marginLeft:10}}
+                            onClick={()=>this.handleSend()}>
                             <Icon>send</Icon>
                             </IconButton>
                         </Grid>           
                     </Grid>
-                    <Grid  lg={5}>               
+                    <Grid container direction='column' lg={5} style={styles.optionsContainer}>
+                        <Typography vartiant='title' style={style.optionsTitle}>To start sending messages select an username</Typography>               
                     </Grid> 
                 </Grid>
         )
@@ -69,6 +100,7 @@ const styles = ({
         overflow: 'scroll',
         overflowX: 'hidden',
         backgroundColor:'#e91e63',
+        
     },
     chatScreen:{ 
         backgroundColor:'#FAFAFA',
@@ -110,5 +142,15 @@ const styles = ({
     },
     iconSend:{
         marginLeft:20
+    },
+    optionsContainer:{
+        marginTop:10,
+        height:700,
+        backgroundColor:'#FAFAFA',
+        justifyContent:'flex-start'
+    },
+    optionsTitle:{
+        marginTop:40,
+        marginLeft:40,
     }
 })
