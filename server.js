@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
+const socket = require("socket.io")
 
 //Routes
 const clients = require('./routes/api/clients');
@@ -28,4 +28,12 @@ app.use('/api/chats',chats);
 
 const PORT = 5000;
 
-app.listen(PORT,()=>console.log(`Server started on ${PORT}`));
+server = app.listen(PORT,()=>console.log(`Server started on ${PORT}`));
+io = socket(server);
+io.on('connection', (socket) => {
+    console.log(socket.id);
+
+    socket.on('SEND_MESSAGE', function(data){
+        io.emit('RECEIVE_MESSAGE', data);
+    })
+});

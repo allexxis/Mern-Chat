@@ -3,8 +3,6 @@ import './App.css'
 import NavBar from './components/NavBar'
 import Chat from './components/Chat'
 import { MuiThemeProvider ,createMuiTheme} from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
-import PropTypes from 'prop-types'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const theme = createMuiTheme({

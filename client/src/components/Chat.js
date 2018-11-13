@@ -2,10 +2,8 @@ import React ,{Component} from 'react';
 import Grid from '@material-ui/core/Grid'
 import {TextField,Card,Paper,Typography, GridList, GridListTile, ListItem,List, Icon, IconButton} from '@material-ui/core'
 import chatBackground from '../images/index.png'
-import purple from '@material-ui/core/colors/purple'
 import * as ReactDOM from 'react-dom';
-
-
+import io from 'socket.io-client'
 export default class Chat extends Component {
     
     constructor(props){
@@ -18,9 +16,22 @@ export default class Chat extends Component {
             messages:[
                 
             ],
+        }
+        this.socket = io('localhost:5000');
 
+        this.socket.on('RECEIVE_MESSAGE', function(data){
+            recieveMessage(data);
+        });
+        const recieveMessage=(data)=>{
+            window.alert(data.username)
         }
         
+    }
+   sendMessage=(ev)=>{
+        this.socket.emit('SEND_MESSAGE', {
+            author: this.state.username,
+            message: this.state.textfield
+        })
     }
     renderMessages=(user,message,key)=>{
         return(
@@ -96,7 +107,7 @@ export default class Chat extends Component {
                             ref='texfield' style={styles.messageInput}/>
                             <IconButton color='primary'
                             style={{width: '55px', height: '55px',marginLeft:10}}
-                            onClick={()=>this.handleSend()}>
+                            onClick={this.sendMessage}>
                             <Icon>send</Icon>
                             </IconButton>
                         </Grid>           
