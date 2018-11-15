@@ -1,0 +1,6 @@
+-Change the way data is send instead of socket via POST/GET 
+-Improve UI
+-Improve REACT ui reload
+-Implement Images and links to the chat 
+-Implement Chat Rooms
+-Implement OAuth
