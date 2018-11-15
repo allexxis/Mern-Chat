@@ -44,9 +44,6 @@ export default class Chat extends Component {
         }
         
     }
-   sendMessage=(ev)=>{
-        
-    }
     renderMessages=(user,message,key)=>{
         return(
         <Paper  style={styles.messagePaper} key={key}>
@@ -69,7 +66,6 @@ export default class Chat extends Component {
     handleUsername=()=>{
         this.setState({
             username:this.state.textfieldUsername,
-            textfieldUsername:''
         })
 
     }
@@ -83,6 +79,13 @@ export default class Chat extends Component {
            window.alert('message canot be empty or username')
        }
        this.setState({textfield:''})
+    }
+    onKeyPres=(event)=>{
+        if (event.charCode === 13) { // enter key pressed
+            event.preventDefault();
+            window.alert('enter')
+          }
+        console.log('llego') 
     }
     render() {
         return (
@@ -107,7 +110,7 @@ export default class Chat extends Component {
                             ref='texfield' style={styles.messageInput}/>
                             <IconButton color='primary'
                             style={{width: '55px', height: '55px',marginLeft:10}}
-                            onClick={this.handleSend}>
+                            onClick={this.handleSend} onKeyDown={this.onKeyPres}>
                             <Icon>send</Icon>
                             </IconButton>
                         </Grid>           
@@ -171,7 +174,6 @@ const styles = ({
         
     },
     messageInputContainer:{
-        justifyContent:'center',
         marginLeft:40,
         marginTop:30,
         height:100,
